@@ -1,14 +1,7 @@
 git clone https://github.com/tensorflow/nmt/
 
 mkdir raw
-## nmt/nmt/scripts/download_iwslt15.sh ./tmp/nmt_data
-#mkdir ./tmp/nmt_model
 
-#git clone --recursive https://github.com/daniel-kukiela/nmt-chatbot
-#cd nmt-chatbot/
-#ln -s ../tmp/chat_model model
-#ln -s ../tmp/chat_data data
-#cd ..
 
 pip3 install tqdm colorama regex
 

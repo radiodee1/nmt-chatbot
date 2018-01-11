@@ -2,3 +2,8 @@
 __pycache__/
 
 todo\.txt
+
+RC_2015-01
+*.txt
+*.db
+*.bz2
