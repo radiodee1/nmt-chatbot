@@ -1,5 +1,8 @@
 git clone https://github.com/tensorflow/nmt/
 
+wget http://www.cs.cornell.edu/~cristian/data/cornell_movie_dialogs_corpus.zip
+mv cornell_movie_dialogs_corpus.zip raw/.
+
 mkdir raw
 
 
