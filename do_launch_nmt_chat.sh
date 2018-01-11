@@ -4,11 +4,11 @@ cd nmt
 python3 -m nmt.nmt \
     --attention=scaled_luong \
     --src=from --tgt=to \
-    --vocab_prefix=../tmp/chat_data/vocab  \
-    --train_prefix=../tmp/chat_data/train \
-    --dev_prefix=../tmp/chat_data/test  \
-    --test_prefix=../tmp/chat_data/test \
-    --out_dir=../tmp/chat_model \
+    --vocab_prefix=../data/vocab  \
+    --train_prefix=../data/train \
+    --dev_prefix=../data/test  \
+    --test_prefix=../data/test \
+    --out_dir=../model \
     --num_train_steps=12000 \
     --steps_per_stats=10 \
     --infer_batch_size=10 \
