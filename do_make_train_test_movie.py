@@ -56,5 +56,5 @@ for timeframe in timeframes:
         if counter % 20 == 0:
             print(counter*limit,'rows completed so far')
 
-    os.system('mv test.* new_data/.')
-    os.system('mv train.* new_data/.')
+    os.system('mv test.from test.to new_data/.')
+    os.system('mv train.from train.to new_data/.')
