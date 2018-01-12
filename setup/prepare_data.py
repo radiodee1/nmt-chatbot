@@ -16,11 +16,11 @@ import time
 # Files to be prepared
 files = {
     'train.from': {'amount': 1, 'up_to': -1},  # copy all of data (up to "samples")
-    'tst2012.from': {'amount': .1, 'up_to': preprocessing['test_size']},  # copy 1/10th but up to 'test_size'
-    'tst2013.from': {'amount': .1, 'up_to': preprocessing['test_size']},
+    'test.from': {'amount': .1, 'up_to': preprocessing['test_size']},  # copy 1/10th but up to 'test_size'
+    'test.from': {'amount': .1, 'up_to': preprocessing['test_size']},
     'train.to': {'amount': 1, 'up_to': -1},
-    'tst2012.to': {'amount': .1, 'up_to': preprocessing['test_size']},
-    'tst2013.to': {'amount': .1, 'up_to': preprocessing['test_size']},
+    'test.to': {'amount': .1, 'up_to': preprocessing['test_size']},
+    'test.to': {'amount': .1, 'up_to': preprocessing['test_size']},
 }
 
 vocab = Counter([])
