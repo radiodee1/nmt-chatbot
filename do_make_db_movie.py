@@ -5,7 +5,7 @@ import sqlite3
 import os
 from datetime import datetime
 
-timeframe = 'movie_lines'
+timeframe = 'input'
 sql_transaction = []
 
 connection = sqlite3.connect('{}.db'.format(timeframe))
@@ -58,7 +58,7 @@ def sql_insert_no_parent(commentid,parentid,comment,subreddit,time,score):
 
 def sql_insert_complete(commentid,parentid,parent,comment,subreddit,time,score):
     try:
-        sql = """INSERT INTO parent_reply (parent_id, comment_id,parent, comment, subreddit, unix, score) VALUES ("{}","{}","{}","{}","{}",{},{});""".format(parentid, commentid,parent, comment, subreddit, int(time), score)
+        sql = """INSERT INTO parent_reply (parent_id, comment_id,parent, comment, subreddit, unix, score) VALUES ("{}","{}","{}","{}","{}",{},{});""".format(parentid, commentid,parent, comment, subreddit, int(time), 5)
         transaction_bldr(sql)
     except Exception as e:
         print('s0 insertion',str(e))
@@ -104,8 +104,8 @@ if __name__ == '__main__':
     create_table()
     row_counter = 0
     paired_rows = 0
-
-    with codecs.open('{}.txt'.format(timeframe), 'rb',encoding='cp1252' ,buffering=1000) as z: # cp1252
+    txtname = 'movie_lines'
+    with codecs.open('{}.txt'.format(txtname), 'rb',encoding='cp1252' ,buffering=1000) as z: # cp1252
         f = z.read()
         bucket = ''
         row = ''
@@ -142,7 +142,7 @@ if __name__ == '__main__':
                 comment_id = 'name-'+str(num)  
                 commentnext_id = 'reply-'+ str(num+1)
 
-            created_utc = 0 
+            created_utc = 1 
             score = 5  
             
             
@@ -165,10 +165,10 @@ if __name__ == '__main__':
                 sql_insert_complete(comment_id,parent_id,body,reply,subreddit,created_utc,score)
                 body = reply[:]
 
-            if done and row_counter % 100000 == 0:
-                print('Total Rows Read: {}, Paired Rows: {}, Time: {}'.format(row_counter, paired_rows, str(datetime.now())))
+                if row_counter % 100000 == 0:
+                    print('Total Rows Read: {}, Paired Rows: {}, Time: {}'.format(row_counter, paired_rows, str(datetime.now())))
 
             if done:
                 num += 1
 
-    os.system("mv movie_lines.db input.db")
+    #os.system("mv movie_lines.db input.db")
