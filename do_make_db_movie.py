@@ -1,6 +1,6 @@
 #!/usr/bin/python3
 
-
+import codecs
 import sqlite3
 import os
 from datetime import datetime
@@ -18,7 +18,7 @@ def format_data(data):
     #data = str(data)
 
     data = data.replace('\n',' newlinechar ').replace('\r',' newlinechar ').replace('"',"'")
-    data = data[:-3]
+    data = data[:]
     #data = data.encode('utf8')
     return data
 
@@ -105,40 +105,70 @@ if __name__ == '__main__':
     row_counter = 0
     paired_rows = 0
 
-    with open('{}.txt'.format(timeframe), 'rb' ,buffering=1000) as f:
+    with codecs.open('{}.txt'.format(timeframe), 'rb',encoding='cp1252' ,buffering=1000) as z: # cp1252
+        f = z.read()
+        bucket = ''
+        row = ''
+        rownext = ''
+        row_out = ''
         num = 0
         body = ''
         reply = ''
-        for row in f: #contents: #f
-
-            row_counter += 1
-            row_in = str(row).split()
-            parent_id = num #row['parent_id']
-            pos = 0
-            for i in range(len(row_in)):
-                if row_in[i].endswith('+'):
-                    pos = i + 1
-                pass
-            row_out = ' '.join(row_in[pos:])
-
-            created_utc = 0  # row['created_utc']
-            score = 5  # row['score']
-            comment_id = 'name-'+str(num)  # = row['name']
-            subreddit = 0  # row['subreddit']
-            parent_data = False  # num # find_parent(parent_id)
-            #print(format_data(row_out), num)
-
-
-            if num % 2 == 0:
-                body = str(format_data(row_out))
+        done = False
+        
+        for j in range(len(f)): 
+        
+            
+            if f[j] != '\n' and f[j] != '\r':
+                bucket += f[j]
+                done = False
             else:
-                reply = str(format_data(row_out))
-                if acceptable(body) and acceptable(reply):
-                    sql_insert_complete(comment_id,parent_id,body,reply,subreddit,created_utc,score)
+                row = bucket[:]
+                bucket = ''
+                done = True
+                row_counter += 1
+                parent_id = num 
+            
+            
+            if done:
+                pos = 0
+                row_in = row.split()
+                for i in range(len(row_in)):
+                    if row_in[i].endswith('+'):
+                        pos = i + 1
+                    pass
+                row_out = ' '.join(row_in[pos:])
+            
+                comment_id = 'name-'+str(num)  
+                commentnext_id = 'reply-'+ str(num+1)
 
-            if row_counter % 100000 == 0:
+            created_utc = 0 
+            score = 5  
+            
+            
+            subreddit = 0  
+            parent_data = False  
+            
+            
+            if done:
+                reply  =  str(format_data(row_out))
+            
+            #reply = str(format_data(rownext_out))
+            if done and body == '': body = reply[:]
+            
+            if acceptable(body) and acceptable(reply) and done :
+                done = False
+                #body = reply[:]
+                print(body, '-body-',row_counter)
+                print(reply,'-reply-',row_counter)
+                
+                sql_insert_complete(comment_id,parent_id,body,reply,subreddit,created_utc,score)
+                body = reply[:]
+
+            if done and row_counter % 100000 == 0:
                 print('Total Rows Read: {}, Paired Rows: {}, Time: {}'.format(row_counter, paired_rows, str(datetime.now())))
 
-            num += 1
+            if done:
+                num += 1
 
     os.system("mv movie_lines.db input.db")
