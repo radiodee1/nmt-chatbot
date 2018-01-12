@@ -158,9 +158,9 @@ if __name__ == '__main__':
             
             if acceptable(body) and acceptable(reply) and done :
                 done = False
-                #body = reply[:]
-                print(body, '-body-',row_counter)
-                print(reply,'-reply-',row_counter)
+                
+                #print(body, '-body-',row_counter)
+                #print(reply,'-reply-',row_counter)
                 
                 sql_insert_complete(comment_id,parent_id,body,reply,subreddit,created_utc,score)
                 body = reply[:]
