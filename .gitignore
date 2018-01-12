@@ -7,3 +7,6 @@ RC_2015-01
 *.txt
 *.db
 *.bz2
+data
+model
+nmt
