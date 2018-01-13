@@ -8,6 +8,8 @@ from datetime import datetime
 timeframe = 'input'
 sql_transaction = []
 
+shift_and_repeat = False
+
 connection = sqlite3.connect('{}.db'.format(timeframe))
 c = connection.cursor()
 
@@ -159,10 +161,11 @@ if __name__ == '__main__':
             if acceptable(body) and acceptable(reply) and done :
                 done = False
                 
-                #print(body, '-body-',row_counter)
-                #print(reply,'-reply-',row_counter)
+                if row_counter % 2 == 0 or  shift_and_repeat:
+                    #print(body, '-body-',row_counter)
+                    #print(reply,'-reply-',row_counter)
                 
-                sql_insert_complete(comment_id,parent_id,body,reply,subreddit,created_utc,score)
+                    if True: sql_insert_complete(comment_id,parent_id,reply,body,subreddit,created_utc,score)
                 body = reply[:]
 
                 if row_counter % 100000 == 0:
