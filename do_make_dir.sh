@@ -1,15 +1,21 @@
-git clone https://github.com/tensorflow/nmt/
+#git clone https://github.com/tensorflow/nmt/
 
-wget http://www.cs.cornell.edu/~cristian/data/cornell_movie_dialogs_corpus.zip
-mv cornell_movie_dialogs_corpus.zip raw/.
+if [ -f raw/cornell_movie_dialogs_corpus.zip ] ; then
+    echo "found movie corpus"
+else
+    wget http://www.cs.cornell.edu/~cristian/data/cornell_movie_dialogs_corpus.zip
+    mv cornell_movie_dialogs_corpus.zip raw/.
+fi
+
 
 mkdir raw
+cd new_data/
+touch test.from test.to train.from train.to
+cd ..
 
 
 pip3 install tqdm colorama regex
 
-
-#mkdir tmp/chat_model tmp/chat_data tmp/chat_new
 
 if [ -f raw/RC_2015-01.bz2 ] ; then
     echo "found RC"
