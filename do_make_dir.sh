@@ -24,7 +24,7 @@ if [ -f raw/RC_2015-01.bz2 ] ; then
     if [ -f RC_2015-01 ] ; then
     
         echo "already unzipped"
-        mv RC_2015-01 ..
+        #mv RC_2015-01 ..
         
     else
         if [ -f ../RC_2015-01 ] ; then
@@ -33,7 +33,7 @@ if [ -f raw/RC_2015-01.bz2 ] ; then
         else
             echo "unzip may take some time..."
             bunzip2 -kv RC_2015-01.bz2
-            mv RC_2015-01 ..    
+            #mv RC_2015-01 ..    
         fi
   
     

@@ -1,6 +1,7 @@
 import sqlite3
 import json
 from datetime import datetime
+import os
 
 timeframe = '2015-01'
 sql_transaction = []
@@ -86,11 +87,12 @@ def find_existing_score(pid):
         return False
     
 if __name__ == '__main__':
+
     create_table()
     row_counter = 0
     paired_rows = 0
 
-    with open('tmp/chat_new/RC_{}'.format(timeframe), buffering=1000) as f:
+    with open('raw/RC_{}'.format(timeframe), buffering=1000) as f:
         for row in f:
             row_counter += 1
             row = json.loads(row)
@@ -118,3 +120,5 @@ if __name__ == '__main__':
                             
             if row_counter % 100000 == 0:
                 print('Total Rows Read: {}, Paired Rows: {}, Time: {}'.format(row_counter, paired_rows, str(datetime.now())))
+                
+    os.system('mv RC_2015-01.db input.db')
