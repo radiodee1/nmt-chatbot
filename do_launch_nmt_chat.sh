@@ -17,11 +17,11 @@ python3 -m nmt.nmt \
     --dropout=0.2 \
     --metrics=bleu \
     --encoder_type=bi \
-    --num_gpus=0 \
     --beam_width=10 \
     --length_penalty_weight=1.0 \
     --batch_size=16 \
-    --optimizer=adam 
+    --optimizer=adam \
+#    --num_gpus=0 
 
  
     
