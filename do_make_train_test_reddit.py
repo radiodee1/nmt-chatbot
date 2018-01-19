@@ -1,7 +1,10 @@
+#!/usr/bin/python3
+
 import sqlite3
 import pandas as pd
+import os
 
-timeframes = ['2015-05']
+timeframes = ['input']
 
 for timeframe in timeframes:
     connection = sqlite3.connect('{}.db'.format(timeframe))
@@ -41,3 +44,5 @@ for timeframe in timeframes:
         counter += 1
         if counter % 20 == 0:
             print(counter*limit,'rows completed so far')
+            
+    os.system('mv train.from train.to test.from test.to new_data/.')
