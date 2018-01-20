@@ -21,7 +21,7 @@ python3 -m nmt.nmt \
     --length_penalty_weight=1.0 \
     --batch_size=16 \
     --optimizer=adam \
-#    --num_gpus=0 
-
+#    --override_loaded_hparams=True
+#    --num_gpus=0 \
  
     
