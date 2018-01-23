@@ -5,10 +5,11 @@ import json
 from datetime import datetime
 import os
 
-timeframe = '2015-01'
+timeframe = '2015-02'
+dbname = 'input'
 sql_transaction = []
 
-connection = sqlite3.connect('{}.db'.format(timeframe))
+connection = sqlite3.connect('{}.db'.format(dbname))
 c = connection.cursor()
 
 def create_table():
@@ -123,4 +124,4 @@ if __name__ == '__main__':
             if row_counter % 100000 == 0:
                 print('Total Rows Read: {}, Paired Rows: {}, Time: {}'.format(row_counter, paired_rows, str(datetime.now())))
                 
-    os.system('mv RC_2015-01.db input.db')
+    os.system('mv 2015-01.db input.db')
