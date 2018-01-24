@@ -3,8 +3,32 @@
 import sqlite3
 import pandas as pd
 import os
+import re
 
 timeframes = ['input']
+to_lower = False
+test_on_screen = False
+
+def format(content):
+    c = content.strip()
+    c = re.sub('[][)(]',' ', c)
+    c = c.split()
+    cx = []
+    for i in range(len(c)):
+        if to_lower: cc = c[i].lower().strip()
+        else : cc = c[i].strip()
+        if cc.startswith("http") or cc.startswith('(http'):
+            cc = '<unk>'
+        if i == 0 or c[i-1].endswith('.') or c[i-1].endswith('?') or c[i-1].endswith('!'):
+            lst = list(cc)
+            lst[0] = lst[0].upper()
+            cc = ''.join(lst)
+        cx.append(cc)
+    x = ' '.join(cx)
+    if test_on_screen: print(x)
+    return x
+
+
 
 for timeframe in timeframes:
     connection = sqlite3.connect('{}.db'.format(timeframe))
@@ -24,10 +48,12 @@ for timeframe in timeframes:
         if not test_done:
             with open('test.from','a', encoding='utf8') as f:
                 for content in df['parent'].values:
+                    content = format(content)
                     f.write(content+'\n')
 
             with open('test.to','a', encoding='utf8') as f:
                 for content in df['comment'].values:
+                    content = format(content)
                     f.write(str(content)+'\n')
 
             test_done = True
@@ -35,13 +61,16 @@ for timeframe in timeframes:
         else:
             with open('train.from','a', encoding='utf8') as f:
                 for content in df['parent'].values:
+                    content = format(content)
                     f.write(content+'\n')
 
             with open('train.to','a', encoding='utf8') as f:
                 for content in df['comment'].values:
+                    content = format(content)
                     f.write(str(content)+'\n')
 
         counter += 1
+        if counter > 3 and test_on_screen: exit()
         if counter % 20 == 0:
             print(counter*limit,'rows completed so far')
             
