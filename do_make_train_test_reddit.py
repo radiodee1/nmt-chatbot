@@ -6,8 +6,10 @@ import os
 import re
 
 timeframes = ['input']
+
 to_lower = False
 test_on_screen = False
+remove_caps = True
 
 def format(content):
     c = content.strip()
@@ -21,8 +23,12 @@ def format(content):
             cc = '<unk>'
         if i == 0 or c[i-1].endswith('.') or c[i-1].endswith('?') or c[i-1].endswith('!'):
             lst = list(cc)
-            lst[0] = lst[0].upper()
+            ## first letter
+            if not remove_caps: lst[0] = lst[0].upper()
+            else: lst[0] = lst[0].lower()
             cc = ''.join(lst)
+        if cc.isupper() or (len(cc) > 1 and cc[1].isupper()):
+            cc = cc.lower()
         cx.append(cc)
     x = ' '.join(cx)
     if test_on_screen: print(x)
