@@ -10,3 +10,8 @@ RC_2015-01
 data
 model
 nmt
+
+train.from
+train.to
+test.from
+test.to
