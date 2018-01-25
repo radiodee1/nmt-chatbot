@@ -6,7 +6,7 @@ from datetime import datetime
 import os
 import sys
 
-timeframe = '2015-02'
+timeframe = 'raw/RC_2015-02'
 dbname = 'input'
 sql_transaction = []
 
@@ -100,14 +100,11 @@ if __name__ == '__main__':
 
     if len(sys.argv) > 1:
         timeframe = sys.argv[1]
-        if timeframe.startswith('raw/'):
-            timeframe = timeframe[4:]
-        if timeframe.startswith('RC_'):
-            timeframe = timeframe[3:]
+        
         print(timeframe)
-        if False: exit()
+        if True: exit()
 
-    with open('raw/RC_{}'.format(timeframe), buffering=1000) as f:
+    with open('{}'.format(timeframe), buffering=1000) as f:
         for row in f:
             row_counter += 1
             row = json.loads(row)
