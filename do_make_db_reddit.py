@@ -4,6 +4,7 @@ import sqlite3
 import json
 from datetime import datetime
 import os
+import sys
 
 timeframe = '2015-02'
 dbname = 'input'
@@ -95,6 +96,17 @@ if __name__ == '__main__':
     row_counter = 0
     paired_rows = 0
 
+    print(sys.argv)
+
+    if len(sys.argv) > 1:
+        timeframe = sys.argv[1]
+        if timeframe.startswith('raw/'):
+            timeframe = timeframe[4:]
+        if timeframe.startswith('RC_'):
+            timeframe = timeframe[3:]
+        print(timeframe)
+        if False: exit()
+
     with open('raw/RC_{}'.format(timeframe), buffering=1000) as f:
         for row in f:
             row_counter += 1
@@ -124,4 +136,4 @@ if __name__ == '__main__':
             if row_counter % 100000 == 0:
                 print('Total Rows Read: {}, Paired Rows: {}, Time: {}'.format(row_counter, paired_rows, str(datetime.now())))
                 
-    os.system('mv 2015-01.db input.db')
+    #os.system('mv 2015-01.db input.db')
