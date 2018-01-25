@@ -100,9 +100,9 @@ if __name__ == '__main__':
 
     if len(sys.argv) > 1:
         timeframe = sys.argv[1]
-        
+
         print(timeframe)
-        if True: exit()
+        if False: exit()
 
     with open('{}'.format(timeframe), buffering=1000) as f:
         for row in f:
