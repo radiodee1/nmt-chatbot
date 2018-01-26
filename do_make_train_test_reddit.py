@@ -13,7 +13,7 @@ remove_caps = True
 
 def format(content):
     c = content.strip()
-    c = re.sub('[][)(\n\r]',' ', c)
+    c = re.sub('[][)(\n\r*#@]',' ', c)
     c = c.split()
     cx = []
     for i in range(len(c)):
