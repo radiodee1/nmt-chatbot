@@ -282,4 +282,13 @@ if __name__ == "__main__":
                         chosen = answers['answers'][i]
                 print("{}- {}{}".format(colorama.Fore.GREEN if answers['scores'][i] == 1 else colorama.Fore.YELLOW if answers['scores'][i] == 0 else colorama.Fore.RED, answers['answers'][i], colorama.Fore.RESET))
 
+        chosen = chosen.strip()
+        c = chosen[-1:]
+        
+        if c != '.' and c != '!' and c != '?' and len(chosen) > 0:
+            chosen = chosen.split(',')[0]
+            chosen = chosen.split('.')[0]
+            chosen = chosen.split('?')[0]
+            chosen = chosen.split('!')[0]
+            chosen += '.'
         print('*', chosen, '*')
