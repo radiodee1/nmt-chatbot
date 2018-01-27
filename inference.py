@@ -181,6 +181,7 @@ def inference(questions, include_blacklisted = True):
     # Process questions
     answers_list = process_questions(questions, include_blacklisted)
 
+    #print(answers_list)
     # Return (one or more?)
     if len(answers_list) == 1:
         return answers_list[0]
@@ -271,9 +272,14 @@ if __name__ == "__main__":
     while True:
         question = input("\n> ")
         answers = process_questions(question)[0]
+        chosen = ''
         if answers is None:
             print(colorama.Fore.RED + "! Question can't be empty")
         else:
             for i, _ in enumerate(answers['scores']):
+                if chosen == '':
+                    if answers['scores'][i] == 1 and question.strip().lower() != answers['answers'][i].strip().lower() :
+                        chosen = answers['answers'][i]
                 print("{}- {}{}".format(colorama.Fore.GREEN if answers['scores'][i] == 1 else colorama.Fore.YELLOW if answers['scores'][i] == 0 else colorama.Fore.RED, answers['answers'][i], colorama.Fore.RESET))
 
+        print('*', chosen, '*')
