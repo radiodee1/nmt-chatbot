@@ -284,11 +284,11 @@ if __name__ == "__main__":
 
         chosen = chosen.strip()
         c = chosen[-1:]
-        
+
         if c != '.' and c != '!' and c != '?' and len(chosen) > 0:
             chosen = chosen.split(',')[0]
             chosen = chosen.split('.')[0]
             chosen = chosen.split('?')[0]
             chosen = chosen.split('!')[0]
             chosen += '.'
-        print('*', chosen, '*')
+        print('*', chosen, '*') ## print the first segment alone.
