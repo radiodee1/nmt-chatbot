@@ -9,7 +9,7 @@ if True:
         zz = z.split()
         zz = zz[0]
         print(zz)
-        g.write(zz)
+        g.write(zz + '\n')
     g.close()
     f.close()
     
