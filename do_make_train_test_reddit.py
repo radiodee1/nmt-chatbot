@@ -7,7 +7,7 @@ import re
 
 timeframes = ['input']
 
-to_lower = False
+to_lower = True
 test_on_screen = False
 remove_caps = True
 
@@ -21,13 +21,13 @@ def format(content):
         else : cc = c[i].strip()
         if cc.startswith("http") or cc.startswith('(http'):
             cc = '<unk>'
-        if i == 0 or c[i-1].endswith('.') or c[i-1].endswith('?') or c[i-1].endswith('!'):
+        if not to_lower and (i == 0 or c[i-1].endswith('.') or c[i-1].endswith('?') or c[i-1].endswith('!')) :
             lst = list(cc)
             ## first letter
             if not remove_caps: lst[0] = lst[0].upper()
             else: lst[0] = lst[0].lower()
             cc = ''.join(lst)
-        if cc.isupper() or (len(cc) > 1 and cc[1].isupper()):
+        if not to_lower and (cc.isupper() or (len(cc) > 1 and cc[1].isupper())):
             cc = cc.lower()
         cx.append(cc)
     x = ' '.join(cx)
