@@ -8,7 +8,7 @@ else
 fi
 
 
-mkdir raw
+mkdir raw model_glove
 cd new_data/
 touch test.from test.to train.from train.to
 cd ..

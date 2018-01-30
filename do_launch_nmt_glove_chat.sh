@@ -4,11 +4,12 @@ cd nmt
 python3 -m nmt.nmt \
     --attention=scaled_luong \
     --src=from --tgt=to \
-    --vocab_prefix=../data/vocab  \
+    --vocab_prefix=../glove/glove.vocab  \
+    --embed_prefix=../glove/glove.embed \
     --train_prefix=../data/train \
     --dev_prefix=../data/test  \
     --test_prefix=../data/test \
-    --out_dir=../model \
+    --out_dir=../model_glove \
     --num_train_steps=12000 \
     --steps_per_stats=10 \
     --infer_batch_size=10 \

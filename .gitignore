@@ -9,6 +9,7 @@ RC_2015-01
 *.bz2
 data
 model
+model_glove
 nmt
 
 train.from

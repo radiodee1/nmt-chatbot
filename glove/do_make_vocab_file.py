@@ -5,7 +5,7 @@ if True:
         '<unk>', '<s>', '</s>'
     ]
     limit = 15000
-    e = open('glove.txt','w')
+    e = open('glove.embed.txt','w')
     f = open("glove.42B.300d.txt",'r')
     g = open('glove.vocab.txt','w')
     h = f.readlines()
