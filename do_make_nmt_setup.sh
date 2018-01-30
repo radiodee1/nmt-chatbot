@@ -9,4 +9,5 @@ echo "your train.from and train.to files."
 cd setup
 python3 prepare_data.py
 cd ..
+cp new_data/train.* data/.
 
