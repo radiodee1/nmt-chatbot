@@ -4,16 +4,19 @@ import sqlite3
 import pandas as pd
 import os
 import re
+import core.tokenizer as ct
 
 timeframes = ['input']
 
 to_lower = True
-test_on_screen = False
+test_on_screen = True
 remove_caps = True
 
 def format(content):
     c = content.strip()
-    c = re.sub('[][)(\n\r*#@]',' ', c)
+    c = re.sub('[][)(\n\r#@]',' ', c)
+    c = ct.tokenize(c)
+
     c = c.split()
     cx = []
     for i in range(len(c)):
@@ -31,6 +34,7 @@ def format(content):
             cc = cc.lower()
         cx.append(cc)
     x = ' '.join(cx)
+
     if test_on_screen: print(x)
     return x
 
@@ -80,4 +84,4 @@ for timeframe in timeframes:
         if counter % 20 == 0:
             print(counter*limit,'rows completed so far')
             
-    os.system('mv train.from train.to test.from test.to new_data/.')
+    if not test_on_screen: os.system('mv train.from train.to test.from test.to new_data/.')
