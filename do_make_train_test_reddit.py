@@ -67,6 +67,7 @@ for timeframe in timeframes:
                     f.write(str(content)+'\n')
 
             test_done = True
+            #limit = 5000
 
         else:
             with open('train.from','a', encoding='utf8') as f:
