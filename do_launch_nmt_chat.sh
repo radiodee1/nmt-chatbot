@@ -9,7 +9,7 @@ python3 -m nmt.nmt \
     --dev_prefix=../data/test  \
     --test_prefix=../data/test \
     --out_dir=../model \
-    --num_train_steps=-1 \
+    --num_train_steps=24000 \
     --steps_per_stats=100 \
     --infer_batch_size=32 \
     --num_layers=2 \
