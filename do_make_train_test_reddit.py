@@ -9,7 +9,7 @@ import core.tokenizer as ct
 timeframes = ['input']
 
 to_lower = True
-test_on_screen = True
+test_on_screen = False
 remove_caps = True
 
 def format(content):
