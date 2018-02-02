@@ -271,6 +271,7 @@ if __name__ == "__main__":
     # QAs
     while True:
         question = input("\n> ")
+        question = question.lower()
         answers = process_questions(question)[0]
         chosen = ''
         if answers is None:
