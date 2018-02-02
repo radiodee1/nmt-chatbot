@@ -9,13 +9,13 @@ import core.tokenizer as ct
 timeframes = ['input']
 
 to_lower = True
-test_on_screen = False
+test_on_screen = True
 remove_caps = True
 
 def format(content):
     c = content.strip()
-    c = re.sub('[][)(\n\r#@]',' ', c)
-    c = ct.tokenize(c)
+    c = re.sub('[][)(\n\r#@*^><]',' ', c)
+    #c = ct.tokenize(c)
 
     c = c.split()
     cx = []
@@ -34,6 +34,7 @@ def format(content):
             cc = cc.lower()
         cx.append(cc)
     x = ' '.join(cx)
+    x = ct.tokenize(x)
 
     if test_on_screen: print(x)
     return x
