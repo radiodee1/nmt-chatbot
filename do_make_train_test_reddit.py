@@ -60,8 +60,8 @@ for timeframe in timeframes:
         try:
             last_unix = df.tail(1)['unix'].values[0]
         except:
-            pass
-        finally:
+            print('error')
+            
             last_unix = 0
 
         cur_length = len(df)
