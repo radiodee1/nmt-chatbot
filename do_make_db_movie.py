@@ -8,7 +8,8 @@ from datetime import datetime
 timeframe = 'input'
 sql_transaction = []
 
-shift_and_repeat = False
+shift_and_repeat = True
+test_on_screen = False
 
 connection = sqlite3.connect('{}.db'.format(timeframe))
 c = connection.cursor()
@@ -19,15 +20,15 @@ def create_table():
 def format_data(data):
     #data = str(data)
 
-    data = data.replace('\n',' newlinechar ').replace('\r',' newlinechar ').replace('"',"'")
-    data = data[:]
+    data2 = data.replace('\n',' newlinechar ').replace('\r',' newlinechar ').replace('"',"'")
+    #data = data[:]
     #data = data.encode('utf8')
-    return data
+    return data2
 
-def transaction_bldr(sql):
+def transaction_bldr(sql , force=False):
     global sql_transaction
-    sql_transaction.append(sql)
-    if len(sql_transaction) > 1000:
+    if not force: sql_transaction.append(sql)
+    if len(sql_transaction) > 1000 or force:
         c.execute('BEGIN TRANSACTION')
         for s in sql_transaction:
             try:
@@ -67,7 +68,9 @@ def sql_insert_complete(commentid,parentid,parent,comment,subreddit,time,score):
 
 
 def acceptable(data):
-    if len(data.split(' ')) > 50 or len(data) < 1:
+    return True
+    '''
+    if len(data.split(' ')) > 500 or len(data) < 1:
         return False
     elif len(data) > 1000:
         return False
@@ -77,6 +80,7 @@ def acceptable(data):
         return False
     else:
         return True
+    '''
 
 def find_parent(pid):
     try:
@@ -116,15 +120,22 @@ if __name__ == '__main__':
         num = 0
         body = ''
         reply = ''
+        name = ''
         done = False
+        done_counter = 0
+        comment_id = ''
+        parent_id = ''
+        comment_id_name = ''
         
         for j in range(len(f)): 
         
             
-            if f[j] != '\n' and f[j] != '\r':
+            if str(f[j]) != '\n' and str(f[j]) != '\r':
                 bucket += f[j]
                 done = False
+                #done_counter +=1
             else:
+                #print('return')
                 row = bucket[:]
                 bucket = ''
                 done = True
@@ -134,15 +145,19 @@ if __name__ == '__main__':
             
             if done:
                 pos = 0
+                pos_name = 0
                 row_in = row.split()
                 for i in range(len(row_in)):
                     if row_in[i].endswith('+'):
                         pos = i + 1
+                        if i - 1 >= 0: pos_name = i - 1
                     pass
                 row_out = ' '.join(row_in[pos:])
+                name = row_in[pos_name].lower()
             
                 comment_id = 'name-'+str(num)  
                 commentnext_id = 'reply-'+ str(num+1)
+                comment_id_name = comment_id + ' ' + str(row_counter)
 
             created_utc = 1 
             score = 5  
@@ -150,28 +165,42 @@ if __name__ == '__main__':
             
             subreddit = 0  
             parent_data = False  
-            
+
+            if done and row_counter % 256 == 0:
+                text = "i am {} .".format(name)
+                text2 = "this is {} .".format(name)
+                sql_insert_complete(comment_id_name, parent_id, text, text2, subreddit, created_utc, score)
+                if test_on_screen:
+                    print(text, row_counter)
+                    #exit()
+                pass
             
             if done:
-                reply  =  str(format_data(row_out))
+                reply = str(format_data(row_out))
             
-            #reply = str(format_data(rownext_out))
             if done and body == '': body = reply[:]
             
-            if acceptable(body) and acceptable(reply) and done :
+            if done: #acceptable(body) and acceptable(reply) and done :
                 done = False
                 
                 if row_counter % 2 == 0 or  shift_and_repeat:
-                    #print(body, '-body-',row_counter)
-                    #print(reply,'-reply-',row_counter)
+                    if test_on_screen and False:
+                        print(body, '-body-',row_counter)
+                        print(reply,'-reply-',row_counter)
+                        print(name, '-name-\n', row_counter)
                 
-                    if True: sql_insert_complete(comment_id,parent_id,reply,body,subreddit,created_utc,score)
+                    if True:
+                        sql_insert_complete(comment_id,parent_id,reply,body,subreddit,created_utc,score)
+                        done_counter += 1
+
                 body = reply[:]
 
                 if row_counter % 100000 == 0:
                     print('Total Rows Read: {}, Paired Rows: {}, Time: {}'.format(row_counter, paired_rows, str(datetime.now())))
 
-            if done:
+                #if done:
                 num += 1
+
+        transaction_bldr('', force=True)
 
     #os.system("mv movie_lines.db input.db")
