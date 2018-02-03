@@ -159,7 +159,7 @@ if __name__ == '__main__':
                 commentnext_id = 'reply-'+ str(num+1)
                 comment_id_name = comment_id + ' ' + str(row_counter)
 
-            created_utc = 1 
+            created_utc = row_counter
             score = 5  
             
             

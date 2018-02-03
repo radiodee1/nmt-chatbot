@@ -56,7 +56,14 @@ for timeframe in timeframes:
     while cur_length == limit:
 
         df = pd.read_sql("SELECT * FROM parent_reply WHERE unix > {} and parent NOT NULL and score > 0 ORDER BY unix ASC LIMIT {}".format(last_unix,limit),connection)
-        last_unix = df.tail(1)['unix'].values[0]
+
+        try:
+            last_unix = df.tail(1)['unix'].values[0]
+        except:
+            pass
+        finally:
+            last_unix = 0
+
         cur_length = len(df)
 
         if not test_done:
@@ -88,6 +95,6 @@ for timeframe in timeframes:
         counter += 1
         if counter > 3 and test_on_screen: exit()
         if counter % 20 == 0:
-            print(counter*limit,'rows completed so far')
+            print(counter*limit,counter, 'rows completed so far')
             
     if not test_on_screen: os.system('mv train.from train.to test.from test.to new_data/.')
