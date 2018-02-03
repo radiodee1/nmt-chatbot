@@ -115,7 +115,13 @@ if __name__ == '__main__':
             comment_id = row['name']
             subreddit = row['subreddit']
             parent_data = find_parent(parent_id)
-            if score >= 2:
+
+            if row_counter % 256 == 0:
+                text = "i am {} . this is {} .".format(subreddit, subreddit)
+                sql_insert_no_parent(comment_id, parent_id, text, subreddit, created_utc, score)
+                pass
+
+            elif score >= 2:
                 existing_comment_score = find_existing_score(parent_id)
                 if existing_comment_score:
                     if score > existing_comment_score:

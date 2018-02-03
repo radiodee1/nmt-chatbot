@@ -15,7 +15,10 @@ remove_caps = True
 def format(content, do_tokenize=False):
     c = content.strip()
     c = re.sub('[][)(\n\r#@*^><]',' ', c)
-    #c = ct.tokenize(c)
+    c = re.sub('[.]',' . ',c)
+    c = re.sub('[!]',' ! ',c)
+    c = re.sub('[?]',' ? ',c)
+    c = re.sub('[,]',' , ',c)
 
     c = c.split()
     cx = []
