@@ -219,7 +219,7 @@ def get_best_score(answers_score, include_blacklisted = True):
     return (index, score)
 
 # Process question or list of questions
-def process_questions(questions, include_blacklisted = True):
+def process_questions(questions, include_blacklisted = True, do_tokenize=False):
 
     # Make a list
     if not isinstance(questions, list):
@@ -229,7 +229,8 @@ def process_questions(questions, include_blacklisted = True):
     prepared_questions = []
     for question in questions:
         question = question.strip()
-        prepared_questions.append(tokenize(question) if question else '##emptyquestion##')
+        if do_tokenize: prepared_questions.append(tokenize(question) if question else '##emptyquestion##')
+        else: prepared_questions.append(question if question else '##emptyquestion##')
 
     # Run inference
     answers_list = inference_helper(prepared_questions)
