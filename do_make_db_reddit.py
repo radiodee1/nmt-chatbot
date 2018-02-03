@@ -54,6 +54,13 @@ def sql_insert_no_parent(commentid,parentid,comment,subreddit,time,score):
     except Exception as e:
         print('s0 insertion',str(e))
 
+def sql_insert_complete(commentid,parentid,parent,comment,subreddit,time):
+    try:
+        sql = """INSERT INTO parent_reply (parent_id, comment_id,parent, comment, subreddit, unix, score) VALUES ("{}","{}","{}","{}","{}",{},{});""".format(parentid, commentid,parent, comment, subreddit, int(time), 5)
+        transaction_bldr(sql)
+    except Exception as e:
+        print('s0 insertion',str(e))
+
 def acceptable(data):
     if len(data.split(' ')) > 50 or len(data) < 1:
         return False
@@ -92,9 +99,6 @@ def find_existing_score(pid):
     
 if __name__ == '__main__':
 
-    create_table()
-    row_counter = 0
-    paired_rows = 0
 
     print(sys.argv)
 
@@ -103,6 +107,10 @@ if __name__ == '__main__':
 
         print(timeframe)
         if False: exit()
+
+    create_table()
+    row_counter = 0
+    paired_rows = 0
 
     with open('{}'.format(timeframe), buffering=1000) as f:
         for row in f:
@@ -117,8 +125,9 @@ if __name__ == '__main__':
             parent_data = find_parent(parent_id)
 
             if row_counter % 256 == 0:
-                text = "i am {} . this is {} .".format(subreddit, subreddit)
-                sql_insert_no_parent(comment_id, parent_id, text, subreddit, created_utc, score)
+                text = "i am {} .".format(subreddit)
+                text2 = 'this is {} .'.format(subreddit)
+                sql_insert_complete(comment_id, parent_id, text,text2, subreddit, created_utc)
                 pass
 
             elif score >= 2:
