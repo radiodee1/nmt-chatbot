@@ -8,7 +8,7 @@ from datetime import datetime
 timeframe = 'input'
 sql_transaction = []
 
-shift_and_repeat = True
+shift_and_repeat = False
 test_on_screen = False
 
 connection = sqlite3.connect('{}.db'.format(timeframe))
