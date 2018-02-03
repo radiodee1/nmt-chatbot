@@ -14,11 +14,12 @@ remove_caps = True
 
 def format(content, do_tokenize=False):
     c = content.strip()
-    c = re.sub('[][)(\n\r#@*^><]',' ', c)
+    c = re.sub('[][)(\n\r#@*^>:<]',' ', c)
     c = re.sub('[.]',' . ',c)
     c = re.sub('[!]',' ! ',c)
     c = re.sub('[?]',' ? ',c)
     c = re.sub('[,]',' , ',c)
+    c = re.sub('[-]',' ',c)
 
     c = c.split()
     cx = []
@@ -61,7 +62,7 @@ for timeframe in timeframes:
             last_unix = df.tail(1)['unix'].values[0]
         except:
             print('error')
-            
+
             last_unix = 0
 
         cur_length = len(df)
