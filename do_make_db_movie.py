@@ -175,12 +175,13 @@ if __name__ == '__main__':
                     #exit()
                 pass
             
-            if done:
+            if done : #and reply == '':
                 reply = str(format_data(row_out))
+
             
-            if done and body == '': body = reply[:]
+                if body == '': body = reply[:]
             
-            if done: #acceptable(body) and acceptable(reply) and done :
+                #if done: #acceptable(body) and acceptable(reply) and done :
                 done = False
                 
                 if row_counter % 2 == 0 or  shift_and_repeat:
@@ -190,10 +191,10 @@ if __name__ == '__main__':
                         print(name, '-name-\n', row_counter)
                 
                     if True:
-                        sql_insert_complete(comment_id,parent_id,reply,body,subreddit,created_utc,score)
+                        sql_insert_complete(comment_id,parent_id,body,reply,subreddit,created_utc,score)
                         done_counter += 1
 
-                body = reply[:]
+                    body = '' #reply[:]
 
                 if row_counter % 100000 == 0:
                     print('Total Rows Read: {}, Paired Rows: {}, Time: {}'.format(row_counter, paired_rows, str(datetime.now())))
