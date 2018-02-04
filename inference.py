@@ -9,6 +9,7 @@ import tensorflow as tf
 from core.tokenizer import tokenize, detokenize
 from core.sentence import score_answers, replace_in_answers
 import colorama
+import tokenize_weak
 
 
 current_stdout = None
@@ -229,7 +230,7 @@ def process_questions(questions, include_blacklisted = True, do_tokenize=False):
     prepared_questions = []
     for question in questions:
         question = question.strip()
-        if do_tokenize: prepared_questions.append(tokenize(question) if question else '##emptyquestion##')
+        if do_tokenize: prepared_questions.append(tokenize_weak.format(question) if question else '##emptyquestion##')
         else: prepared_questions.append(question if question else '##emptyquestion##')
 
     # Run inference

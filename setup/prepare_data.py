@@ -11,6 +11,7 @@ from tqdm import tqdm
 from itertools import zip_longest
 from multiprocessing import Pool
 from threading import Thread
+import tokenize_weak
 import time
 
 # Files to be prepared
@@ -26,6 +27,7 @@ files = {
 vocab = Counter([])
 
 def tokenize(sentence):
+    sentence = tokenize_weak.format(sentence)
     xx = []
     for x in sentence.split():
         x = x.strip()
