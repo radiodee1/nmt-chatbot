@@ -19,7 +19,7 @@ python3 -m nmt.nmt \
     --encoder_type=bi \
     --beam_width=10 \
     --length_penalty_weight=1.0 \
-    --batch_size=256 \
+    --batch_size=32 \
     --optimizer=adam \
     --learning_rate=0.001 \
     --override_loaded_hparams=True
