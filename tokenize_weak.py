@@ -21,7 +21,41 @@ def format(content, do_tokenize=False):
     c = re.sub('[,]',' , ',c)
     c = re.sub('[-]',' ',c)
 
-    c = c.split()
+    c = c.split(' ')
+
+    cy = []
+    for z in c:
+        #z = z.strip()
+        begin = re.findall(r"^'(\w+)$", z)
+        end = re.findall(r"^(\w+)'$", z)
+        w_period = re.findall(r"^(\w+)'\.$", z)
+        both = re.findall(r"^'(\w+)'$",z)
+        print(begin, end, w_period, both)
+
+        if len(both) > 1 or len(begin) > 1 or len(end) > 1 or len(w_period) > 1:
+            cy.append(z)
+            exit()
+        elif len(both) > 0:
+            print(both)
+            cy.append("'")
+            cy.append(both[0])
+            cy.append("'")
+        elif len(w_period) > 0:
+            print(w_period)
+            cy.append(w_period[0])
+            cy.append("'")
+            cy.append(".")
+        elif len(begin) > 0: # != '':
+            cy.append("'")
+            cy.append(begin[0])
+        elif len(end) > 0: # != '':
+            cy.append(end[0])
+            cy.append("'")
+        else:
+            cy.append(z)
+
+    c = cy
+
     cx = []
     for i in range(len(c)):
         if to_lower: cc = c[i].lower().strip()
@@ -38,7 +72,7 @@ def format(content, do_tokenize=False):
             cc = cc.lower()
         cx.append(cc)
     x = ' '.join(cx)
-    if do_tokenize: x = ct.tokenize(x)
+    #if do_tokenize: x = ct.tokenize(x)
 
     if test_on_screen: print(x)
     return x
