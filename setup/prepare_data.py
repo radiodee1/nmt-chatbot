@@ -5,7 +5,7 @@ import os
 import errno
 from collections import Counter
 from setup.settings import preprocessing, hparams
-from core.tokenizer import tokenize
+#from core.tokenizer import tokenize
 from core.sentence import score_answers, replace_in_answers
 from tqdm import tqdm
 from itertools import zip_longest
@@ -25,6 +25,9 @@ files = {
 
 vocab = Counter([])
 
+def tokenize(sentence):
+    return sentence
+    pass
 
 # Prepare all files
 def prepare():

@@ -48,7 +48,7 @@ def format(content, do_tokenize=False):
 for timeframe in timeframes:
     connection = sqlite3.connect('{}.db'.format(timeframe))
     c = connection.cursor()
-    limit = 5000
+    limit = 100 #5000
     last_unix = 0
     cur_length = limit
     counter = 0
@@ -79,9 +79,10 @@ for timeframe in timeframes:
                     f.write(str(content)+'\n')
 
             test_done = True
+            limit = 5000
+            cur_length = limit
 
         else:
-            #limit = 5000
 
             with open('train.from','a', encoding='utf8') as f:
                 for content in df['parent'].values:
