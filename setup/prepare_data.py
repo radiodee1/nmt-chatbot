@@ -26,6 +26,16 @@ files = {
 vocab = Counter([])
 
 def tokenize(sentence):
+    xx = []
+    for x in sentence.split():
+        x = x.strip()
+        if x == '\n' or x == '\r' or x == '\n\r' or x == '\r\n' or len(x) == 0:
+            pass
+        else:
+            #xx.append(' ')
+            xx.append(x)
+        pass
+    sentence = ' '.join(xx)
     return sentence
     pass
 
@@ -138,6 +148,8 @@ def prepare():
             # Filter out duplicates and empty entities
             vocab = set()
             vocab = [entity for entity in new_vocab if not (entity in vocab or vocab.add(entity)) and entity]
+
+
 
             # Write entities to a file
             with open('{}/{}'.format(preprocessing['train_folder'], file_name.replace('train', 'vocab')), 'w',
