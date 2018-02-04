@@ -290,7 +290,7 @@ if __name__ == "__main__":
                     c = chosen.strip().split()
                     xx = []
                     for x in c:
-                        if x != '<unk>':
+                        if x != '<unk>' and not (x.starswith('<unk>') or x.endswith('<unk>')):
                             xx.append(x)
                     chosen = " ".join(xx)
 
