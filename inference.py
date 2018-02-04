@@ -283,6 +283,17 @@ if __name__ == "__main__":
                     if answers['scores'][i] == 1 and question.strip().lower() != answers['answers'][i].strip().lower() :
                         chosen = answers['answers'][i]
                 print("{}- {}{}".format(colorama.Fore.GREEN if answers['scores'][i] == 1 else colorama.Fore.YELLOW if answers['scores'][i] == 0 else colorama.Fore.RED, answers['answers'][i], colorama.Fore.RESET))
+            if chosen == '':
+                for i, _ in enumerate(answers['scores']):
+                    chosen = answers['answers'][i]
+                    c = chosen.strip().split()
+                    xx = []
+                    for x in c:
+                        if x != '<unk>':
+                            xx.append(x)
+                    chosen = " ".join(xx)
+
+
 
         chosen = chosen.strip()
         c = chosen[-1:]
