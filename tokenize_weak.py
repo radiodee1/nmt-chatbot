@@ -25,18 +25,14 @@ def format(content, do_tokenize=False):
 
     cy = []
     for z in c:
-        #z = z.strip()
         begin = re.findall(r"^'(\w+)$", z)
         end = re.findall(r"^(\w+)'$", z)
         w_period = re.findall(r"^(\w+)'\.$", z)
         both = re.findall(r"^'(\w+)'$",z)
-        print(begin, end, w_period, both)
 
         if len(both) > 1 or len(begin) > 1 or len(end) > 1 or len(w_period) > 1:
             cy.append(z)
-            exit()
         elif len(both) > 0:
-            print(both)
             cy.append("'")
             cy.append(both[0])
             cy.append("'")
