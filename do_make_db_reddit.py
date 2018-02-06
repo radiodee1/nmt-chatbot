@@ -120,7 +120,13 @@ if __name__ == '__main__':
             body = format_data(row['body'])
             created_utc = row['created_utc']
             score = row['score']
-            comment_id = row['name']
+            try:
+                comment_id = row['name']
+            except:
+                comment_id = row['author']
+
+            #comment_id = row['name']
+            
             subreddit = row['subreddit']
             parent_data = find_parent(parent_id)
 

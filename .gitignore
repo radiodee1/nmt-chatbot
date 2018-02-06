@@ -6,11 +6,13 @@ todo\.txt
 RC_2015-01
 *.txt
 *.db
+*.db-journal
 *.bz2
 data
 model
 model_glove
 nmt
+raw
 
 train.from
 train.to
