@@ -121,12 +121,17 @@ if __name__ == '__main__':
             created_utc = row['created_utc']
             score = row['score']
             try:
+                score = int(row['score'])
+            except:
+                score = 0
+                
+            try:
                 comment_id = row['name']
             except:
-                comment_id = row['author']
+                comment_id = 't1_' + row['id']
 
             #comment_id = row['name']
-            
+
             subreddit = row['subreddit']
             parent_data = find_parent(parent_id)
 
@@ -136,7 +141,7 @@ if __name__ == '__main__':
                 sql_insert_complete(comment_id, parent_id, text,text2, subreddit, created_utc)
                 pass
 
-            elif score >= 2:
+            elif int(score) >= 2:
                 existing_comment_score = find_existing_score(parent_id)
                 if existing_comment_score:
                     if score > existing_comment_score:
