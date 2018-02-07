@@ -124,7 +124,7 @@ if __name__ == '__main__':
                 score = int(row['score'])
             except:
                 score = 0
-                
+
             try:
                 comment_id = row['name']
             except:
