@@ -10,6 +10,8 @@ timeframe = 'raw/RC_2015-02'
 dbname = 'input'
 sql_transaction = []
 
+add_simple_question = True
+
 connection = sqlite3.connect('{}.db'.format(dbname))
 c = connection.cursor()
 
@@ -135,7 +137,7 @@ if __name__ == '__main__':
             subreddit = row['subreddit']
             parent_data = find_parent(parent_id)
 
-            if row_counter % 256 == 0:
+            if add_simple_question and paired_rows % 256 == 0:
                 text = "i am {} .".format(subreddit)
                 text2 = 'this is {} .'.format(subreddit)
                 sql_insert_complete(comment_id, parent_id, text,text2, subreddit, created_utc)
