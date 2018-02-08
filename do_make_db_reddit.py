@@ -138,12 +138,18 @@ if __name__ == '__main__':
             parent_data = find_parent(parent_id)
 
             if add_simple_question and paired_rows % 256 == 0:
-                text = "i am {} .".format(subreddit)
-                text2 = 'this is {} .'.format(subreddit)
+                ## auto-encoder type question. ##
+                text = "i am {} . who is this ? ".format(subreddit)
+                text2 = 'i am {} . who is this ? '.format(subreddit)
                 sql_insert_complete(comment_id, parent_id, text,text2, subreddit, created_utc)
                 pass
 
-            elif int(score) >= 2:
+            if add_simple_question and paired_rows % 512 == 0:
+                ## auto-encoder type question. ##
+                sql_insert_complete(comment_id, parent_id, body,body, subreddit, created_utc)
+                pass
+
+            if int(score) >= 2:
                 existing_comment_score = find_existing_score(parent_id)
                 if existing_comment_score:
                     if score > existing_comment_score:
