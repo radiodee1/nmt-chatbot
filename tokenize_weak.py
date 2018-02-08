@@ -15,11 +15,6 @@ remove_caps = True
 def format(content, do_tokenize=False):
     c = content.strip()
     c = re.sub('[][)(\n\r#@*^><]',' ', c)
-    #c = re.sub('[.]',' . ',c)
-    c = re.sub('[!]',' ! ',c)
-    c = re.sub('[?]',' ? ',c)
-    c = re.sub('[,]',' , ',c)
-    c = re.sub('[-]',' ',c)
 
     c = c.split(' ')
 
@@ -30,6 +25,8 @@ def format(content, do_tokenize=False):
         w_period = re.findall(r"^(\w+)'\.$", z)
         both = re.findall(r"^'(\w+)'$",z)
         amp = re.findall(r"^&(\w+);$",z)
+        link = re.findall(r"^http(\w+)",z)
+        link2 = re.findall(r"^\(http(\w+)",z)
 
 
         if len(both) > 1 or len(begin) > 1 or len(end) > 1 or len(w_period) > 1:
@@ -39,7 +36,7 @@ def format(content, do_tokenize=False):
             cy.append(both[0])
             cy.append("'")
         elif len(w_period) > 0:
-            print(w_period)
+            #print(w_period)
             cy.append(w_period[0])
             cy.append("'")
             cy.append(".")
@@ -49,7 +46,7 @@ def format(content, do_tokenize=False):
         elif len(end) > 0: # != '':
             cy.append(end[0])
             cy.append("'")
-        elif len(amp) > 0:
+        elif len(amp) > 0 or len(link) > 0 or len(link2) > 0:
             # do not append z!!
             pass
         else:
@@ -74,6 +71,11 @@ def format(content, do_tokenize=False):
         cx.append(cc)
     x = ' '.join(cx)
 
+    x = re.sub('[!]', ' ! ', x)
+    x = re.sub('[?]', ' ? ', x)
+    x = re.sub('[,]', ' , ', x)
+    x = re.sub('[-]', ' ', x)
+    x = re.sub('[.]', ' . ', x)
 
     if test_on_screen: print(x)
     return x
