@@ -14,8 +14,8 @@ remove_caps = True
 
 def format(content, do_tokenize=False):
     c = content.strip()
-    c = re.sub('[][)(\n\r#@*^>:<]',' ', c)
-    c = re.sub('[.]',' . ',c)
+    c = re.sub('[][)(\n\r#@*^><]',' ', c)
+    #c = re.sub('[.]',' . ',c)
     c = re.sub('[!]',' ! ',c)
     c = re.sub('[?]',' ? ',c)
     c = re.sub('[,]',' , ',c)
@@ -29,6 +29,8 @@ def format(content, do_tokenize=False):
         end = re.findall(r"^(\w+)'$", z)
         w_period = re.findall(r"^(\w+)'\.$", z)
         both = re.findall(r"^'(\w+)'$",z)
+        amp = re.findall(r"^&(\w+);$",z)
+
 
         if len(both) > 1 or len(begin) > 1 or len(end) > 1 or len(w_period) > 1:
             cy.append(z)
@@ -47,6 +49,9 @@ def format(content, do_tokenize=False):
         elif len(end) > 0: # != '':
             cy.append(end[0])
             cy.append("'")
+        elif len(amp) > 0:
+            # do not append z!!
+            pass
         else:
             cy.append(z)
 
@@ -68,7 +73,7 @@ def format(content, do_tokenize=False):
             cc = cc.lower()
         cx.append(cc)
     x = ' '.join(cx)
-    #if do_tokenize: x = ct.tokenize(x)
+
 
     if test_on_screen: print(x)
     return x
