@@ -59,7 +59,7 @@ def format(content, do_tokenize=False):
         if to_lower: cc = c[i].lower().strip()
         else : cc = c[i].strip()
         if cc.startswith("http") or cc.startswith('(http'):
-            cc = '<unk>'
+            cc = '' #'<unk>'
         if not to_lower and (i == 0 or c[i-1].endswith('.') or c[i-1].endswith('?') or c[i-1].endswith('!')) :
             lst = list(cc)
             ## first letter

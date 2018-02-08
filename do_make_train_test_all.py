@@ -68,6 +68,6 @@ for timeframe in timeframes:
         counter += 1
         if counter > 3 and test_on_screen: exit()
         if counter % 20 == 0:
-            print(counter*limit,counter, 'rows completed so far')
+            print(counter*limit, counter, 'rows completed so far')
             
     if not test_on_screen: os.system('mv train.from train.to test.from test.to new_data/.')

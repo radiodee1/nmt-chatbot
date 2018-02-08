@@ -113,6 +113,7 @@ if __name__ == '__main__':
     create_table()
     row_counter = 0
     paired_rows = 0
+    xx = 64
 
     with open('{}'.format(timeframe), buffering=1000) as f:
         for row in f:
@@ -137,19 +138,21 @@ if __name__ == '__main__':
             subreddit = row['subreddit']
             parent_data = find_parent(parent_id)
 
-            if add_simple_question and paired_rows % 256 == 0:
+            if add_simple_question and paired_rows % xx == 0 and paired_rows > xx:
                 ## auto-encoder type question. ##
                 text = "i am {} . who is this ? ".format(subreddit)
                 text2 = 'i am {} . who is this ? '.format(subreddit)
-                sql_insert_complete(comment_id, parent_id, text,text2, subreddit, created_utc)
+                sql_insert_complete(comment_id + '_z', parent_id, text,text2, subreddit, created_utc)
+                paired_rows += 1
                 pass
 
-            if add_simple_question and paired_rows % 512 == 0:
+            elif add_simple_question and paired_rows % xx == 1 and paired_rows > xx:
                 ## auto-encoder type question. ##
-                sql_insert_complete(comment_id, parent_id, body,body, subreddit, created_utc)
+                sql_insert_complete(comment_id + '_z', parent_id, body, body, subreddit, created_utc)
+                paired_rows += 1
                 pass
 
-            if int(score) >= 2:
+            elif int(score) >= 2:
                 existing_comment_score = find_existing_score(parent_id)
                 if existing_comment_score:
                     if score > existing_comment_score:
