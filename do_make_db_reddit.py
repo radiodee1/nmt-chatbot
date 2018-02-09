@@ -11,6 +11,8 @@ dbname = 'input'
 sql_transaction = []
 
 add_simple_question = True
+newlinechar = ' '
+#newlinechar = ' newlinechar '
 
 connection = sqlite3.connect('{}.db'.format(dbname))
 c = connection.cursor()
@@ -19,7 +21,7 @@ def create_table():
     c.execute("CREATE TABLE IF NOT EXISTS parent_reply(parent_id TEXT PRIMARY KEY, comment_id TEXT UNIQUE, parent TEXT, comment TEXT, subreddit TEXT, unix INT, score INT)")
 
 def format_data(data):
-    data = data.replace('\n',' newlinechar ').replace('\r',' newlinechar ').replace('"',"'")
+    data = data.replace('\n', newlinechar ).replace('\r', newlinechar ).replace('"',"'")
     return data
 
 def transaction_bldr(sql):
@@ -113,7 +115,7 @@ if __name__ == '__main__':
     create_table()
     row_counter = 0
     paired_rows = 0
-    xx = 64
+    xx = 16
 
     with open('{}'.format(timeframe), buffering=1000) as f:
         for row in f:
@@ -141,8 +143,8 @@ if __name__ == '__main__':
             if add_simple_question and paired_rows % xx == 0 and paired_rows > xx:
                 ## auto-encoder type question. ##
                 text = "i am {} . who is this ? ".format(subreddit)
-                text2 = 'i am {} . who is this ? '.format(subreddit)
-                sql_insert_complete(comment_id + '_z', parent_id, text,text2, subreddit, created_utc)
+                #text2 = 'i am {} . who is this ? '.format(subreddit)
+                sql_insert_complete(comment_id + '_z', parent_id, text, text, subreddit, created_utc)
                 paired_rows += 1
                 pass
 
@@ -170,4 +172,3 @@ if __name__ == '__main__':
             if row_counter % 100000 == 0:
                 print('Total Rows Read: {}, Paired Rows: {}, Time: {}'.format(row_counter, paired_rows, str(datetime.now())))
                 
-    #os.system('mv 2015-01.db input.db')
