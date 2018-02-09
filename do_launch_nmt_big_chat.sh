@@ -18,7 +18,7 @@ python3 -m nmt.nmt \
     --metrics=bleu \
     --encoder_type=bi \
     --beam_width=10 \
-    --length_penalty_weight=0.1 \
+    --length_penalty_weight=1.0 \
     --batch_size=32 \
     --optimizer=adam \
     --learning_rate=0.001 \
