@@ -23,4 +23,4 @@ hello
 good bye.
 y.
 y
-it's not like I have to , or even can , repeat the same thing over and over .
+it's not like I have to or even can repeat the same thing over and over .
