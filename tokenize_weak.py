@@ -46,7 +46,7 @@ def format(content, do_tokenize=False):
         elif len(end) > 0: # != '':
             cy.append(end[0])
             cy.append("'")
-        elif len(amp) > 0 or len(link) > 0 or len(link2) > 0:
+        elif len(amp) > 0 or len(link) > 0 or len(link2) > 0 or z == 'newlinechar':
             # do not append z!!
             pass
         else:
@@ -76,6 +76,8 @@ def format(content, do_tokenize=False):
     x = re.sub('[,]', ' , ', x)
     x = re.sub('[-]', ' ', x)
     x = re.sub('[.]', ' . ', x)
+    x = re.sub('[/]', '', x)
+
 
     if test_on_screen: print(x)
     return x
