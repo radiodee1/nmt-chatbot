@@ -14,7 +14,7 @@ remove_caps = True
 
 def format(content, do_tokenize=False):
     c = content.strip()
-    c = re.sub('[][)(\n\r#@*^><]',' ', c)
+    c = re.sub('[][)(\n\r#@*^><:|]',' ', c)
 
     c = c.split(' ')
 
@@ -24,7 +24,7 @@ def format(content, do_tokenize=False):
         end = re.findall(r"^(\w+)'$", z)
         w_period = re.findall(r"^(\w+)'\.$", z)
         both = re.findall(r"^'(\w+)'$",z)
-        amp = re.findall(r"^&(\w+);$",z)
+        amp = re.findall(r"&(\w+);",z) ## anywhere in word
         link = re.findall(r"^http(\w+)",z)
         link2 = re.findall(r"^\(http(\w+)",z)
 
