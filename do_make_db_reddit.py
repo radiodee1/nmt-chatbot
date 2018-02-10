@@ -143,7 +143,6 @@ if __name__ == '__main__':
             if add_simple_question and paired_rows % xx == 0 and paired_rows > xx:
                 ## auto-encoder type question. ##
                 text = "i am {} . who is this ? it's me .".format(subreddit)
-                #text2 = 'i am {} . who is this ? '.format(subreddit)
                 sql_insert_complete(comment_id + '_z', parent_id, text, text, subreddit, created_utc)
                 paired_rows += 1
                 pass
