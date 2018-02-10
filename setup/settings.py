@@ -18,7 +18,7 @@ preprocessing = {
     # -1 means all available in source data set
     'samples': -1,
 
-    # vocab max size
+    # vocab max size, ...set to 20,000
     'vocab_size': 15000,
 
     # test sets' max size

@@ -7,7 +7,7 @@ echo "change them after you start training... even if you change"
 echo "your train.from and train.to files."
 
 cd setup
-python3 prepare_data.py
+python3 prepare_data.py 20000
 cd ..
 cp new_data/t* data/.
 

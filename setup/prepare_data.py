@@ -214,4 +214,7 @@ def append_vocab(lines, thread):
 
 # Prepare training data set
 if __name__ == "__main__":
+    if len(sys.argv) > 1:
+        preprocessing['vocab_size'] = int(sys.argv[1])
+
     prepare()
