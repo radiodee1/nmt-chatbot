@@ -220,7 +220,7 @@ def get_best_score(answers_score, include_blacklisted = True):
     return (index, score)
 
 # Process question or list of questions
-def process_questions(questions, include_blacklisted = True, do_tokenize=False):
+def process_questions(questions, include_blacklisted = True, do_tokenize=True):
 
     # Make a list
     if not isinstance(questions, list):
@@ -273,7 +273,7 @@ if __name__ == "__main__":
     # QAs
     while True:
         question = input("\n> ")
-        question = question.lower()
+        question = tokenize_weak.format( question)
         answers = process_questions(question)[0]
         chosen = ''
         if answers is None:
