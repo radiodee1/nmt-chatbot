@@ -10,7 +10,7 @@ timeframe = 'raw/RC_2015-02'
 dbname = 'input'
 sql_transaction = []
 
-add_simple_question = True
+add_simple_question = False
 newlinechar = ' '
 #newlinechar = ' newlinechar '
 
