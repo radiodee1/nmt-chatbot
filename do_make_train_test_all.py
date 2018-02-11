@@ -4,10 +4,17 @@ import sqlite3
 import pandas as pd
 import os
 import tokenize_weak
-import re
-import core.tokenizer as ct
+import sys
+#import core.tokenizer as ct
 
 timeframes = ['input']
+
+print(sys.argv)
+
+if len(sys.argv) > 1:
+    z = sys.argv[1].split('.')
+    z = '.'.join(z[:-1])
+    timeframes = [str(z)]
 
 to_lower = True
 test_on_screen = False
