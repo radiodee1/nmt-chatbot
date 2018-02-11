@@ -20,6 +20,10 @@ to_lower = True
 test_on_screen = False
 remove_caps = True
 
+batch_size = 256
+steps_per_stats = 100
+pull_size = batch_size * steps_per_stats * 10
+
 def format(s):
     return tokenize_weak.format(s)
 
@@ -31,6 +35,7 @@ for timeframe in timeframes:
     cur_length = limit
     counter = 0
     test_done = False
+    pull_num = 0
 
     while cur_length == limit:
 
@@ -49,7 +54,7 @@ for timeframe in timeframes:
             with open('test.from','a', encoding='utf8') as f:
                 for content in df['parent'].values:
                     content = format(content)
-                    f.write(content+'\n')
+                    f.write(str(content)+'\n')
 
             with open('test.to','a', encoding='utf8') as f:
                 for content in df['comment'].values:
@@ -57,7 +62,8 @@ for timeframe in timeframes:
                     f.write(str(content)+'\n')
 
             test_done = True
-            limit = 5000
+            #limit = 5000
+            limit = pull_size
             cur_length = limit
 
         else:
@@ -65,16 +71,30 @@ for timeframe in timeframes:
             with open('train.from','a', encoding='utf8') as f:
                 for content in df['parent'].values:
                     content = format(content)
-                    f.write(content+'\n')
+                    f.write(str(content)+'\n')
 
             with open('train.to','a', encoding='utf8') as f:
                 for content in df['comment'].values:
                     content = format(content)
                     f.write(str(content)+'\n')
 
+            pull_num += 1
+            with open('raw/train.'+ str(pull_num) + '.from','a', encoding='utf8') as f:
+                for content in df['parent'].values:
+                    content = format(content)
+                    f.write(str(content)+'\n')
+
+            with open('raw/train.'+ str(pull_num) + '.to','a', encoding='utf8') as f:
+                for content in df['comment'].values:
+                    content = format(content)
+                    f.write(str(content)+'\n')
+
+
         counter += 1
         if counter > 3 and test_on_screen: exit()
-        if counter % 20 == 0:
-            print(counter*limit, counter, 'rows completed so far')
+        if counter % pull_size == 0:
+            print(counter * limit, counter, 'rows completed so far')
             
-    if not test_on_screen: os.system('mv train.from train.to test.from test.to new_data/.')
+    if not test_on_screen:
+        os.system('mv train.from train.to test.from test.to new_data/.')
+        os.system('mv raw/train.* new_data/.')
