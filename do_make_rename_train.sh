@@ -2,8 +2,8 @@
 
 cd data
 
-BIGTRAINFROM=big_train.from
-BIGTRAINTO=big_train.to
+BIGTRAINFROM=train.big.from
+BIGTRAINTO=train.big.to
 
 TRAIN=train
 
