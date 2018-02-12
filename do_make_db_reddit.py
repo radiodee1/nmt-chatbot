@@ -5,6 +5,7 @@ import json
 from datetime import datetime
 import os
 import sys
+import itertools
 
 timeframe = 'raw/RC_2015-02'
 dbname = 'input'
@@ -108,21 +109,25 @@ if __name__ == '__main__':
 
     if len(sys.argv) > 1:
         timeframe = sys.argv[1]
-
         print(timeframe)
-        if False: exit()
+        print('this first arg should be the path to the reddit json dump file.')
 
     create_table()
     row_counter = 0
+    start = 0
     paired_rows = 0
     xx = 16
 
     if len(sys.argv) > 2:
         row_counter = int(sys.argv[2])
-        
+        start = row_counter
+        print(start)
+        print('this second arg is typically an integer val with five zeros.')
+
 
     with open('{}'.format(timeframe), buffering=1000) as f:
         for row in f:
+            #for row in itertools.islice(f, start, None):
             row_counter += 1
             row = json.loads(row)
             parent_id = row['parent_id']
