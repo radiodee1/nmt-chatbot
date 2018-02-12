@@ -117,6 +117,10 @@ if __name__ == '__main__':
     paired_rows = 0
     xx = 16
 
+    if len(sys.argv) > 2:
+        row_counter = int(sys.argv[2])
+        
+
     with open('{}'.format(timeframe), buffering=1000) as f:
         for row in f:
             row_counter += 1
