@@ -34,10 +34,12 @@ else
         ln -s $BIGTRAINFROM $TRAIN.from
         ln -s $BIGTRAINTO $TRAIN.to
     else
-        mv $TRAIN.from $BIGTRAINFROM
-        mv $TRAIN.to $BIGTRAINTO
-
+        echo "doing nothing"
+        #mv $TRAIN.from $BIGTRAINFROM
+        #mv $TRAIN.to $BIGTRAINTO
+        echo "try:"
+        echo "ls -hal"
     fi
-    ls -hal
+    #ls -hal
 
 fi
