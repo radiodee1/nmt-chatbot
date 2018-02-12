@@ -11,3 +11,5 @@ python3 prepare_data.py 20000
 cd ..
 cp new_data/t* data/.
 
+cd data/
+ls -hal

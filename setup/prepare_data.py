@@ -138,7 +138,7 @@ def prepare():
         out_file.close()
 
         # If it's train file, make vocab
-        if file_name == 'train.from' or file_name == 'train.to':
+        if file_name == 'train.big.from' or file_name == 'train.big.to':
             print("\nFile: {} (saving vocab)".format(file_name.replace('train', 'vocab')))
 
             # Get most common entities
