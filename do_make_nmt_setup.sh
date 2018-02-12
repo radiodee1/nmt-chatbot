@@ -12,4 +12,5 @@ cd ..
 cp new_data/t* data/.
 
 cd data/
-ls -hal
+echo "change names here?"
+#ls -hal
