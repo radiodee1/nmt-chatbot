@@ -16,10 +16,10 @@ import time
 
 # Files to be prepared
 files = {
-    'train.from': {'amount': 1, 'up_to': -1},  # copy all of data (up to "samples")
+    'train.big.from': {'amount': 1, 'up_to': -1},  # copy all of data (up to "samples")
     'test.from': {'amount': .1, 'up_to': preprocessing['test_size']},  # copy 1/10th but up to 'test_size'
     'test.from': {'amount': .1, 'up_to': preprocessing['test_size']},
-    'train.to': {'amount': 1, 'up_to': -1},
+    'train.big.to': {'amount': 1, 'up_to': -1},
     'test.to': {'amount': .1, 'up_to': preprocessing['test_size']},
     'test.to': {'amount': .1, 'up_to': preprocessing['test_size']},
 }
