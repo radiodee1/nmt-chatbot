@@ -14,3 +14,5 @@ cp new_data/t* data/.
 cd data/
 echo "change names here?"
 #ls -hal
+mv vocab.big.from vocab.from
+mv vocab.big.to vocab.to

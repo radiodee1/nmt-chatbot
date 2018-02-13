@@ -218,3 +218,4 @@ if __name__ == "__main__":
         preprocessing['vocab_size'] = int(sys.argv[1])
 
     prepare()
+
