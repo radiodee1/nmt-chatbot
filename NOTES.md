@@ -22,4 +22,6 @@ I have put together train.from and train.to files that contain 4 million sentenc
 
 Training the first epoch I have found some interesting patterns. The model is meant to be a chat-bot that's supposed to answer questions somewhat intelligently. In fact it's more of a 'yes' bot. This is because it doesn't answer most questions, but is constantly on the alert for one that can be answered with a yes or no. Then, under these conditions, it answers 'yes'. It is actually interesting how complex the question sentence can be. 
 
-The model, I believe, can be trained further. It will be interesting to see if the 'yes-bot' behaviour remains after further training, or if some other pattern takes over. The model definitely doesn't answer all the time, and this I find to be dissapointing.
+The model, I believe, can be trained further. It will be interesting to see if the 'yes-bot' behaviour remains after further training, or if some other pattern takes over. 
+
+The model definitely doesn't answer all the time, and this I find to be dissapointing.
