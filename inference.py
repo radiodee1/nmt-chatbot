@@ -272,9 +272,12 @@ if __name__ == "__main__":
 
     # QAs
     while True:
-        question = input("\n> ")
+        question = input(colorama.Fore.WHITE + "\n> ")
         question = tokenize_weak.format( question)
-        answers = process_questions(question)[0]
+        answers = process_questions(question)
+        print(answers)
+        answers = answers[0]
+        #answers = process_questions(question)[0]
         chosen = ''
         if answers is None:
             print(colorama.Fore.RED + "! Question can't be empty")
