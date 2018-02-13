@@ -51,12 +51,12 @@ for timeframe in timeframes:
         cur_length = len(df)
 
         if not test_done:
-            with open('test.from','a', encoding='utf8') as f:
+            with open('raw/test.from','a', encoding='utf8') as f:
                 for content in df['parent'].values:
                     content = format(content)
                     f.write(str(content)+'\n')
 
-            with open('test.to','a', encoding='utf8') as f:
+            with open('raw/test.to','a', encoding='utf8') as f:
                 for content in df['comment'].values:
                     content = format(content)
                     f.write(str(content)+'\n')
@@ -68,12 +68,12 @@ for timeframe in timeframes:
 
         else:
 
-            with open('train.big.from','a', encoding='utf8') as f:
+            with open('raw/train.big.from','a', encoding='utf8') as f:
                 for content in df['parent'].values:
                     content = format(content)
                     f.write(str(content)+'\n')
 
-            with open('train.big.to','a', encoding='utf8') as f:
+            with open('raw/train.big.to','a', encoding='utf8') as f:
                 for content in df['comment'].values:
                     content = format(content)
                     f.write(str(content)+'\n')
@@ -96,5 +96,5 @@ for timeframe in timeframes:
             print(counter * limit, counter, 'rows completed so far')
             
     if not test_on_screen:
-        os.system('mv train.big.from train.big.to test.from test.to new_data/.')
-        os.system('mv raw/train.* new_data/.')
+        #os.system('mv train.big.from train.big.to test.from test.to new_data/.')
+        os.system('mv raw/t* new_data/.')
