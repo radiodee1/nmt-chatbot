@@ -16,7 +16,7 @@ I decided that I wanted to do a full training iteration of auto-encoding. I remo
 
 I immediately replaced the train.from file with its original contents and trained until another checkpoint was saved. I don't know if this helped my overall training or not.
 
-Later
+Later:
 ------
 I have put together train.from and train.to files that contain 4 million sentence pairs. I have focused on an architecture that has 600 units (for the vector size), 2 LTSM layers and a vocabulary size of about 20000 words. I've also separated the training files into 16 smaller equally sized files. 
 
