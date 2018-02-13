@@ -126,8 +126,8 @@ if __name__ == '__main__':
 
 
     with open('{}'.format(timeframe), buffering=1000) as f:
-        for row in f:
-            #for row in itertools.islice(f, start, None):
+        #for row in f:
+        for row in itertools.islice(f, start, None):
             row_counter += 1
             row = json.loads(row)
             parent_id = row['parent_id']
