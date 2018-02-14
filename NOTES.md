@@ -3,7 +3,7 @@ Links:
 some interesting sites for finding corpus data.
 
 
-* https://datasets.maluuba.com/NewsQA/dl
+* https://www.cs.cornell.edu/~cristian/Cornell_Movie-Dialogs_Corpus.html
 * http://files.pushshift.io/reddit/
 
 Early Notes:
