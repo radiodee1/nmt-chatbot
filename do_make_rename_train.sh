@@ -43,3 +43,5 @@ else
     #ls -hal
 
 fi
+
+ls -hal $TRAIN.from $TRAIN.to
