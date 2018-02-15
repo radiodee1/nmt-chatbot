@@ -14,6 +14,9 @@ import tokenize_weak
 
 current_stdout = None
 
+hparams['num_translations_per_input'] = 10
+hparams['override_loaded_hparams'] = True
+
 # That will not be as easy as training script, as code relies on input and output file in deep levels of code
 # It also outputs massive amount of info
 # We have to make own script for inference, so we could:cd ..
@@ -269,6 +272,8 @@ if __name__ == "__main__":
     # Interactive mode
     print("\n\nStarting interactive mode (first response will take a while):")
     colorama.init()
+
+    print(hparams)
 
     # QAs
     while True:
