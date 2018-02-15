@@ -27,6 +27,7 @@ def format(content, do_tokenize=False):
         amp = re.findall(r"&(\w+);",z) ## anywhere in word
         link = re.findall(r"^http(\w+)",z)
         link2 = re.findall(r"^\(http(\w+)",z)
+        www = re.findall(r"^www(\w+)",z)
 
 
         if len(both) > 1 or len(begin) > 1 or len(end) > 1 or len(w_period) > 1:
@@ -46,7 +47,7 @@ def format(content, do_tokenize=False):
         elif len(end) > 0: # != '':
             cy.append(end[0])
             cy.append("'")
-        elif len(amp) > 0 or len(link) > 0 or len(link2) > 0 or z == 'newlinechar':
+        elif len(amp) > 0 or len(link) > 0 or len(link2) > 0 or len(www) > 0 or z == 'newlinechar':
             # do not append z!!
             pass
         else:
