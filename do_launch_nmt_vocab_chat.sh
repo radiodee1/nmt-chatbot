@@ -22,7 +22,8 @@ python3 -m nmt.nmt \
     --batch_size=256 \
     --optimizer=adam \
     --learning_rate=0.001 \
-    --override_loaded_hparams=True
+    --override_loaded_hparams=True \
+    --num_translations_per_input=1
 #    --num_gpus=0 \
  
     
