@@ -27,7 +27,7 @@ def format(content, do_tokenize=False):
         amp = re.findall(r"&(\w+);",z) ## anywhere in word
         link = re.findall(r"^http(\w+)",z)
         link2 = re.findall(r"^\(http(\w+)",z)
-        www = re.findall(r"^www(\w+)",z)
+        www = re.findall(r"^www",z)
 
 
         if len(both) > 1 or len(begin) > 1 or len(end) > 1 or len(w_period) > 1:
@@ -69,7 +69,13 @@ def format(content, do_tokenize=False):
             cc = ''.join(lst)
         if not to_lower and (cc.isupper() or (len(cc) > 1 and cc[1].isupper())):
             cc = cc.lower()
-        cx.append(cc)
+
+        if i < len(c) - 1 and cc != c[i + 1].lower():
+            ## skip elipses and repeats.
+            cx.append(cc)
+        elif i == len(c):
+            cx.append(cc)
+
     x = ' '.join(cx)
 
     x = re.sub('[!]', ' ! ', x)
@@ -83,3 +89,6 @@ def format(content, do_tokenize=False):
     if test_on_screen: print(x)
     return x
 
+if __name__ == '__main__':
+    ## try one line of text
+    print(format('here there we are www.here.com ? ! ? ?'))
