@@ -25,8 +25,11 @@ def make_vocab():
     if l > vocab_length: l = vocab_length
     cc = c.most_common(l)
     #v = []
-    for z in cc:
-        v.append(z[0])
+    for z in sorted(cc):
+        if z[0].lower() not in v: v.append(z[0].lower())
+    #vv = list(set(v))
+    v.sort()
+    #v = vv
     #print(v)
 
 def save_vocab():
@@ -47,6 +50,8 @@ if __name__ == '__main__':
         train_file = str(sys.argv[1])
 
     print(train_file)
+    #global v
     v = []
+    #global v
     make_vocab()
     save_vocab()
