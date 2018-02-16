@@ -20,16 +20,16 @@ def format(content, do_tokenize=False):
 
     cy = []
     for z in c:
-        begin = re.findall(r"^[']+([^']+)", z)
+        begin = re.findall(r"^[']+([^']*)", z)
         end = re.findall(r"(\w+)[']+$", z)
         w_period = re.findall(r"^(\w+)'\.$", z)
         b_e_w_period = re.findall(r"^'(\w+)'\.$", z)
-        both = re.findall(r"^[']+(\w*)[']+$",z)
+        both = re.findall(r"^[']+([^']*)[']+$",z)
         amp = re.findall(r"&(\w+);",z) ## anywhere in word
         link = re.findall(r"^http(\w+)",z)
         link2 = re.findall(r"^\(http(\w+)",z)
         www = re.findall(r"^www",z)
-        odd = re.findall(r"([$%0123456789+=^;:~_\-\\])(\w*)", z)
+        odd = re.findall(r"([$%0123456789+=^;:~_/\\])(\w*)", z)
         double = re.findall(r"(['])(['])+", z)
 
         if test_on_screen: print(z,begin,end, both)
@@ -107,4 +107,4 @@ if __name__ == '__main__':
     print(format('here There we are www.here.com ... ? ! ? ?'))
     print(format("it's a very ''very' 'bad 'thing'."))
     print(format(' something like %%%, or $$$ , right?'))
-    print(format("its like 1 or ' me ' or 23ish. $omething "))
+    print(format("it's like 1 or ' me ' or 23ish. $omething "))
