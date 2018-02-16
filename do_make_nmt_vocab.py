@@ -22,8 +22,10 @@ def make_vocab():
     wordset = set(wordlist)
     c = Counter(wordset)
     l = len(wordset)
+    print(l,'length of raw vocab data')
     if l > vocab_length: l = vocab_length
     cc = c.most_common(l)
+    print(len(cc), 'length of result list')
     #v = []
     for z in sorted(cc):
         if z[0].lower() not in v: v.append(z[0].lower())

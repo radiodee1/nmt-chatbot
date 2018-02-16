@@ -20,18 +20,27 @@ def format(content, do_tokenize=False):
 
     cy = []
     for z in c:
-        begin = re.findall(r"^'(\w+)$", z)
-        end = re.findall(r"^(\w+)'$", z)
+        begin = re.findall(r"^[']+(\w+)", z)
+        end = re.findall(r"(\w+)[']+$", z)
         w_period = re.findall(r"^(\w+)'\.$", z)
-        both = re.findall(r"^'(\w+)'$",z)
+        both = re.findall(r"^[']+(\w+)[']+$",z)
         amp = re.findall(r"&(\w+);",z) ## anywhere in word
         link = re.findall(r"^http(\w+)",z)
         link2 = re.findall(r"^\(http(\w+)",z)
         www = re.findall(r"^www",z)
+        odd = re.findall(r"([$%0123456789])(\w*)", z)
+        double = re.findall(r"(['])+", z)
 
+        #print(z,begin,end, both)
 
-        if len(both) > 1 or len(begin) > 1 or len(end) > 1 or len(w_period) > 1:
-            cy.append(z)
+        if len(double) > 0 and len(begin) == 0:
+            l = z.split("'")
+            if len(l) > 2:
+                z = re.sub('[\']','',z)
+                #print(z)
+                cy.append(z)
+            else:
+                cy.append(z)
         elif len(both) > 0:
             cy.append("'")
             cy.append(both[0])
@@ -41,16 +50,20 @@ def format(content, do_tokenize=False):
             cy.append(w_period[0])
             cy.append("'")
             cy.append(".")
-        elif len(begin) > 0: # != '':
+        elif len(begin) > 0:
             cy.append("'")
             cy.append(begin[0])
-        elif len(end) > 0: # != '':
+        elif len(end) > 0:
             cy.append(end[0])
             cy.append("'")
         elif len(amp) > 0 or len(link) > 0 or len(link2) > 0 or len(www) > 0 or z == 'newlinechar':
             # do not append z!!
             pass
+        elif len(odd) > 0:
+            # this sometimes removes punctuation!!
+            pass
         else:
+            pass
             cy.append(z)
 
     #c = cy
@@ -86,4 +99,6 @@ def format(content, do_tokenize=False):
 if __name__ == '__main__':
     ## try one line of text
     print(format('here There we are www.here.com ... ? ! ? ?'))
-    print(format("it's a very very bad thing."))
+    print(format("it's a very very 'bad thing."))
+    print(format(' something like %%%, or $$$ , right?'))
+    print(format("its like 1 or ' me ' or 23ish. $omething "))
