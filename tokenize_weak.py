@@ -15,7 +15,7 @@ remove_caps = True
 def format(content, do_tokenize=False):
     c = content.lower().strip()
     c = re.sub('[][)(\n\r#@*^><:|]',' ', c)
-
+    c = re.sub("[\"`]","'",c)
     c = c.split(' ')
 
     cy = []
@@ -24,12 +24,12 @@ def format(content, do_tokenize=False):
         end = re.findall(r"(\w+)[']+$", z)
         w_period = re.findall(r"^(\w+)'\.$", z)
         b_e_w_period = re.findall(r"^'(\w+)'\.$", z)
-        both = re.findall(r"^[']+(\w+)[']+$",z)
+        both = re.findall(r"^[']+(\w*)[']+$",z)
         amp = re.findall(r"&(\w+);",z) ## anywhere in word
         link = re.findall(r"^http(\w+)",z)
         link2 = re.findall(r"^\(http(\w+)",z)
         www = re.findall(r"^www",z)
-        odd = re.findall(r"([$%0123456789+])(\w*)", z)
+        odd = re.findall(r"([$%0123456789+=^;:~_\-\\])(\w*)", z)
         double = re.findall(r"(['])(['])+", z)
 
         if test_on_screen: print(z,begin,end, both)
