@@ -49,3 +49,4 @@ if __name__ == '__main__':
     print(train_file)
     v = []
     make_vocab()
+    save_vocab()
