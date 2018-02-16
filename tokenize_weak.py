@@ -73,7 +73,7 @@ def format(content, do_tokenize=False):
         if i < len(c) - 1 and cc != c[i + 1].lower():
             ## skip elipses and repeats.
             cx.append(cc)
-        elif i == len(c):
+        elif i + 1 == len(c):
             cx.append(cc)
 
     x = ' '.join(cx)
