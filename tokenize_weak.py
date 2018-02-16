@@ -13,7 +13,7 @@ test_on_screen = False
 remove_caps = True
 
 def format(content, do_tokenize=False):
-    c = content.strip()
+    c = content.lower().strip()
     c = re.sub('[][)(\n\r#@*^><:|]',' ', c)
 
     c = c.split(' ')
@@ -53,22 +53,22 @@ def format(content, do_tokenize=False):
         else:
             cy.append(z)
 
-    c = cy
+    #c = cy
+
+    x = ' '.join(cy)
+
+    x = re.sub('[!]', ' ! ', x)
+    x = re.sub('[?]', ' ? ', x)
+    x = re.sub('[,]', ' , ', x)
+    x = re.sub('[-]', ' ', x)
+    x = re.sub('[.]', ' . ', x)
+    x = re.sub('[/]', '', x)
+
+    c = x.split()
 
     cx = []
     for i in range(len(c)):
-        if to_lower: cc = c[i].lower().strip()
-        else : cc = c[i].strip()
-        if cc.startswith("http") or cc.startswith('(http'):
-            cc = '' #'<unk>'
-        if not to_lower and (i == 0 or c[i-1].endswith('.') or c[i-1].endswith('?') or c[i-1].endswith('!')) :
-            lst = list(cc)
-            ## first letter
-            if not remove_caps: lst[0] = lst[0].upper()
-            else: lst[0] = lst[0].lower()
-            cc = ''.join(lst)
-        if not to_lower and (cc.isupper() or (len(cc) > 1 and cc[1].isupper())):
-            cc = cc.lower()
+        cc = c[i].strip()
 
         if i < len(c) - 1 and cc != c[i + 1].lower():
             ## skip elipses and repeats.
@@ -78,17 +78,11 @@ def format(content, do_tokenize=False):
 
     x = ' '.join(cx)
 
-    x = re.sub('[!]', ' ! ', x)
-    x = re.sub('[?]', ' ? ', x)
-    x = re.sub('[,]', ' , ', x)
-    x = re.sub('[-]', ' ', x)
-    x = re.sub('[.]', ' . ', x)
-    x = re.sub('[/]', '', x)
-
 
     if test_on_screen: print(x)
     return x
 
 if __name__ == '__main__':
     ## try one line of text
-    print(format('here there we are www.here.com ? ! ? ?'))
+    print(format('here There we are www.here.com ... ? ! ? ?'))
+    print(format("it's a very very bad thing."))
