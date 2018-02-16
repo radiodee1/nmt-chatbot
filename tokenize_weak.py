@@ -20,7 +20,7 @@ def format(content, do_tokenize=False):
 
     cy = []
     for z in c:
-        begin = re.findall(r"^[']+(\w+)", z)
+        begin = re.findall(r"^[']+([^']+)", z)
         end = re.findall(r"(\w+)[']+$", z)
         w_period = re.findall(r"^(\w+)'\.$", z)
         b_e_w_period = re.findall(r"^'(\w+)'\.$", z)
