@@ -23,17 +23,18 @@ def format(content, do_tokenize=False):
         begin = re.findall(r"^[']+(\w+)", z)
         end = re.findall(r"(\w+)[']+$", z)
         w_period = re.findall(r"^(\w+)'\.$", z)
+        b_e_w_period = re.findall(r"^'(\w+)'\.$", z)
         both = re.findall(r"^[']+(\w+)[']+$",z)
         amp = re.findall(r"&(\w+);",z) ## anywhere in word
         link = re.findall(r"^http(\w+)",z)
         link2 = re.findall(r"^\(http(\w+)",z)
         www = re.findall(r"^www",z)
-        odd = re.findall(r"([$%0123456789])(\w*)", z)
-        double = re.findall(r"(['])+", z)
+        odd = re.findall(r"([$%0123456789+])(\w*)", z)
+        double = re.findall(r"(['])(['])+", z)
 
-        #print(z,begin,end, both)
+        if test_on_screen: print(z,begin,end, both)
 
-        if len(double) > 0 and len(begin) == 0:
+        if len(double) > 0 and len(w_period) == 0 and (len(begin) == 0 or len(end) == 0):
             l = z.split("'")
             if len(l) > 2:
                 z = re.sub('[\']','',z)
@@ -45,6 +46,11 @@ def format(content, do_tokenize=False):
             cy.append("'")
             cy.append(both[0])
             cy.append("'")
+        elif len(b_e_w_period) > 0:
+            cy.append("'")
+            cy.append(b_e_w_period[0])
+            cy.append("'")
+            cy.append(".")
         elif len(w_period) > 0:
             #print(w_period)
             cy.append(w_period[0])
@@ -66,7 +72,6 @@ def format(content, do_tokenize=False):
             pass
             cy.append(z)
 
-    #c = cy
 
     x = ' '.join(cy)
 
@@ -93,12 +98,13 @@ def format(content, do_tokenize=False):
     x = ' '.join(cx)
 
 
-    if test_on_screen: print(x)
+    #if test_on_screen: print(x)
     return x
 
 if __name__ == '__main__':
     ## try one line of text
+    test_on_screen = True
     print(format('here There we are www.here.com ... ? ! ? ?'))
-    print(format("it's a very very 'bad thing."))
+    print(format("it's a very ''very' 'bad 'thing'."))
     print(format(' something like %%%, or $$$ , right?'))
     print(format("its like 1 or ' me ' or 23ish. $omething "))
