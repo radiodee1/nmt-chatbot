@@ -272,8 +272,8 @@ if __name__ == "__main__":
     print("\n\nStarting interactive mode (first response will take a while):")
     colorama.init()
 
-    #hparams['num_translations_per_input'] = 10
-    #hparams['override_loaded_hparams'] = True
+    hparams['num_translations_per_input'] = 10
+    hparams['override_loaded_hparams'] = True
     print(hparams)
 
     # QAs
