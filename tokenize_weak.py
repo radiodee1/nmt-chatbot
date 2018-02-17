@@ -34,7 +34,11 @@ def format(content, do_tokenize=False):
 
         if test_on_screen: print(z,begin,end, both)
 
-        if len(double) > 0 and len(w_period) == 0 and (len(begin) == 0 or len(end) == 0):
+
+        if len(odd) > 0:
+            ## this sometimes consumes punctuation
+            pass
+        elif len(double) > 0 and len(w_period) == 0 and (len(begin) == 0 or len(end) == 0):
             l = z.split("'")
             if len(l) > 2:
                 z = re.sub('[\']','',z)
@@ -65,9 +69,7 @@ def format(content, do_tokenize=False):
         elif len(amp) > 0 or len(link) > 0 or len(link2) > 0 or len(www) > 0 or z == 'newlinechar':
             # do not append z!!
             pass
-        elif len(odd) > 0:
-            # this sometimes removes punctuation!!
-            pass
+
         else:
             pass
             cy.append(z)
@@ -105,6 +107,6 @@ if __name__ == '__main__':
     ## try one line of text
     test_on_screen = True
     print(format('here There we are www.here.com ... ? ! ? ?'))
-    print(format("it's a very ''very' 'bad 'thing'."))
+    print(format("it's \"a\" very ''very' 'bad 'thing'."))
     print(format(' something like %%%, or $$$ , right?'))
     print(format("it's like 1 or ' me ' or 23ish. $omething "))
