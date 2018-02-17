@@ -26,3 +26,10 @@ The model, I believe, can be trained further. It will be interesting to see if t
 
 The model definitely doesn't answer all the time, and this I find to be disappointing. The resulting model might be described as a 'shy-bot' because it doesn't always even answer. To the other extreme we might describe a 'rude-bot' that answers all the time but not always appropriately. We might define a spectrum between 'shy' and 'rude'. Right now my chat-bot is definitely on the 'shy' side. I'm hoping further training will help this.
 
+Third Epoch - 4 Million Questions and Answers:
+-------
+The model seems to continue to improve. I will continue to train the model, at least to a fourth epoch with these 4 million Q&A files. I am also going to create a separate github repository and approach this project with Keras, rewriting much of the code. I will focus on a architecture that matches this one. I will try to implement as many features as I can. 
+
+I don't expect to be able to use training from this repository in the keras version, but hopefully I can train the next one to a similar level of operation.
+
+Finally I have to explore options for installing the model on the web and/or on a smaller computer platform (like raspberry pi). I would like to see something that used speech-to-text technology.
