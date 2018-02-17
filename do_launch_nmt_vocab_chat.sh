@@ -21,9 +21,9 @@ python3 -m nmt.nmt \
     --length_penalty_weight=1.0 \
     --batch_size=256 \
     --optimizer=adam \
-    --learning_rate=0.001 \
-    --override_loaded_hparams=True \
-    --num_translations_per_input=1
+    --learning_rate=0.001 
+#    --override_loaded_hparams=True \
+#    --num_translations_per_input=1
 #    --num_gpus=0 \
  
     
