@@ -25,7 +25,10 @@ steps_per_stats = 100
 pull_size = batch_size * steps_per_stats * 10
 
 def format(s):
-    return tokenize_weak.format(s)
+    z = tokenize_weak.format(s)
+    if z.strip() == '':
+        z = ' what ? '
+    return z
 
 for timeframe in timeframes:
     connection = sqlite3.connect('{}.db'.format(timeframe))
