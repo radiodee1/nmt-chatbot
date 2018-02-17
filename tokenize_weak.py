@@ -4,7 +4,7 @@ import sqlite3
 import pandas as pd
 import os
 import re
-import core.tokenizer as ct
+import unidecode
 
 timeframes = ['input']
 
@@ -14,8 +14,11 @@ remove_caps = True
 
 def format(content, do_tokenize=False):
     c = content.lower().strip()
-    c = re.sub('[][)(\n\r#@*^><:|]',' ', c)
+    c = unidecode.unidecode(c)
+    c = re.sub('[][)(\n\r#@*^><:|{}]',' ', c)
     c = re.sub("[\"`]","'",c)
+    c = re.sub('[.]', ' . ', c)
+
     c = c.split(' ')
 
     cy = []
@@ -81,7 +84,6 @@ def format(content, do_tokenize=False):
     x = re.sub('[?]', ' ? ', x)
     x = re.sub('[,]', ' , ', x)
     x = re.sub('[-]', ' ', x)
-    x = re.sub('[.]', ' . ', x)
     x = re.sub('[/]', '', x)
     x = re.sub("[`]", "'", x)
 
@@ -110,3 +112,4 @@ if __name__ == '__main__':
     print(format("it's \"a\" very ''very' 'bad 'thing'."))
     print(format(' something like %%%, or $$$ , right?'))
     print(format("it's like 1 or ' me ' or 23ish. $omething "))
+    print(format("."))
