@@ -17,7 +17,6 @@ def format(content, do_tokenize=False):
     c = unidecode.unidecode(c)
     c = re.sub('[][)(\n\r#@*^><:|{}]',' ', c)
     c = re.sub("[\"`]","'",c)
-    c = re.sub('[.]', ' . ', c)
 
     c = c.split(' ')
 
@@ -86,6 +85,7 @@ def format(content, do_tokenize=False):
     x = re.sub('[-]', ' ', x)
     x = re.sub('[/]', '', x)
     x = re.sub("[`]", "'", x)
+    x = re.sub('[.]', ' . ', x)
 
     c = x.split()
 
